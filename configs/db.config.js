@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+// hardcoded
 mongoose
   .connect('mongodb://localhost/express-cinema-dev', {
     useCreateIndex: true,
