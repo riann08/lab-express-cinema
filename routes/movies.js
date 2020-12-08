@@ -2,14 +2,17 @@
 
 const express = require('express');
 const router = express.Router();
-const MovieModel = require("../models/Movie.model")
+const MovieModel = require("../models/Movie.model") //require MovieModel
 
-/* GET home page */
+/* GET movies page */
 
   router.get("/", async (req, res, next) => {
     try {
       //try to find all labels stored in labels collection
       const movies = await MovieModel.find();
+
+      //console.log(movies);
+
          //if succes, send the found array as a view parameter
         res.render("movies", {movies} );  //we are ready now to loop through each label and display @view
       } catch (err) {
@@ -19,5 +22,19 @@ const MovieModel = require("../models/Movie.model")
         next(err);
       }
     });
+
+    router.get("movies/:id", async (req, res) => {
+      try {
+        console.log ("toto");
+        //try to find all labels stored in labels collection
+        const movie = await MovieModel.findById(req.params.id);
+
+        console.log(movie);
+
+          res.render("movie", {movie} );  //we are ready now to loop through each label and display @view
+        } catch (err) {  
+          res.render ("not-found");
+        }
+      });
 
 module.exports = router;
